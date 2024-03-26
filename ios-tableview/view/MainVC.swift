@@ -6,21 +6,23 @@
 //
 
 import UIKit
-import Fakery
 
 class MainVC: UIViewController {
-
-    private var myTable: UITableView!
-    private var dataFaker = Faker()
+    lazy var tabAdapter = MyTableAdapter()
+    private var myTopTable: UITableView!
+    private var myBottomTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .cyan
 
-        self.myTable = self.view.viewWithTag(20) as? UITableView
-        self.myTable.register(UINib(nibName: "MyTableCell", bundle: nil), forCellReuseIdentifier: "blueberry")
+        self.myTopTable = self.view.viewWithTag(20) as? UITableView
+        self.myTopTable.register(UINib(nibName: "MyFakerCell", bundle: nil), forCellReuseIdentifier: "fakecell")
+        self.myBottomTable = self.view.viewWithTag(30) as? UITableView
+        self.myBottomTable.register(UINib(nibName: "MyTableCell", bundle: nil), forCellReuseIdentifier: "blueberry")
 //        self.myTable.register(UITableViewCell.self, forCellReuseIdentifier: "blueberry")
-        self.myTable.dataSource = self
+        self.myBottomTable.dataSource = self
+        self.myTopTable.dataSource = tabAdapter
         // Do any additional setup after loading the view.
     }
 

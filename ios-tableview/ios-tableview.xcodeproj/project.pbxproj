@@ -16,7 +16,9 @@
 		155F5B192BB20F44001EB507 /* Fakery in Frameworks */ = {isa = PBXBuildFile; productRef = 155F5B182BB20F44001EB507 /* Fakery */; };
 		155F5B1C2BB21196001EB507 /* MyTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 155F5B1B2BB21196001EB507 /* MyTableCell.xib */; };
 		155F5B1D2BB21196001EB507 /* MyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F5B1A2BB21196001EB507 /* MyTableCell.swift */; };
-		155F5B202BB21442001EB507 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F5B1F2BB21442001EB507 /* Person.swift */; };
+		155F5B242BB26D59001EB507 /* MyTableAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F5B232BB26D59001EB507 /* MyTableAdapter.swift */; };
+		155F5B272BB26F75001EB507 /* MyFakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 155F5B262BB26F75001EB507 /* MyFakerCell.xib */; };
+		155F5B282BB26F75001EB507 /* MyFakerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155F5B252BB26F75001EB507 /* MyFakerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +32,9 @@
 		155F5B142BB20D90001EB507 /* MainVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainVC.xib; sourceTree = "<group>"; };
 		155F5B1A2BB21196001EB507 /* MyTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableCell.swift; sourceTree = "<group>"; };
 		155F5B1B2BB21196001EB507 /* MyTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTableCell.xib; sourceTree = "<group>"; };
-		155F5B1F2BB21442001EB507 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		155F5B232BB26D59001EB507 /* MyTableAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableAdapter.swift; sourceTree = "<group>"; };
+		155F5B252BB26F75001EB507 /* MyFakerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFakerCell.swift; sourceTree = "<group>"; };
+		155F5B262BB26F75001EB507 /* MyFakerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFakerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,9 @@
 				155F5B142BB20D90001EB507 /* MainVC.xib */,
 				155F5B1A2BB21196001EB507 /* MyTableCell.swift */,
 				155F5B1B2BB21196001EB507 /* MyTableCell.xib */,
+				155F5B252BB26F75001EB507 /* MyFakerCell.swift */,
+				155F5B262BB26F75001EB507 /* MyFakerCell.xib */,
+				155F5B232BB26D59001EB507 /* MyTableAdapter.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -97,7 +104,6 @@
 		155F5B1E2BB21414001EB507 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				155F5B1F2BB21442001EB507 /* Person.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -170,6 +176,7 @@
 				155F5B072BB1FFCF001EB507 /* Assets.xcassets in Resources */,
 				155F5B1C2BB21196001EB507 /* MyTableCell.xib in Resources */,
 				155F5B0A2BB1FFCF001EB507 /* Base in Resources */,
+				155F5B272BB26F75001EB507 /* MyFakerCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,9 +187,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				155F5B202BB21442001EB507 /* Person.swift in Sources */,
+				155F5B242BB26D59001EB507 /* MyTableAdapter.swift in Sources */,
 				155F5AFE2BB1FFCC001EB507 /* AppDelegate.swift in Sources */,
 				155F5B162BB20D90001EB507 /* MainVC.swift in Sources */,
+				155F5B282BB26F75001EB507 /* MyFakerCell.swift in Sources */,
 				155F5B1D2BB21196001EB507 /* MyTableCell.swift in Sources */,
 				155F5B002BB1FFCC001EB507 /* SceneDelegate.swift in Sources */,
 			);
