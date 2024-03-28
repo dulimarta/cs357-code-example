@@ -31,6 +31,18 @@ class LiveData<T> {
         }
     }
     
+    /* must use post() when updating from a non-UI thread */
+    func post(newValue: T?) {
+        self._value = newValue
+        DispatchQueue.main.async {
+            for fn in self.subscribers {
+                // Notify each subscriber of the new value
+                fn(newValue)
+            }
+
+        }
+    }
+    
     func observe(_ obs: @escaping ObserverFunc<T>) {
         self.subscribers.append(obs)
         obs(self._value)

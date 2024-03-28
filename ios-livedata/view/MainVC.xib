@@ -12,7 +12,6 @@
             <connections>
                 <outlet property="addBtn" destination="Jbl-vp-DQj" id="c8L-Rq-NiQ"/>
                 <outlet property="counterLabel" destination="vg4-Cv-8Nf" id="0ah-N9-Eal"/>
-                <outlet property="liveCounterLabel" destination="p0T-OX-r9P" id="HE7-f0-H0A"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,7 +34,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Counter Y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0T-OX-r9P">
+                <label opaque="NO" userInteractionEnabled="NO" tag="41" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Counter Y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0T-OX-r9P">
                     <rect key="frame" x="140.66666666666666" y="216" width="111.66666666666666" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>

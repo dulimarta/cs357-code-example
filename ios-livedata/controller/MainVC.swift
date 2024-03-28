@@ -11,7 +11,7 @@ import SnackBar
 
 class MainVC: UIViewController {
 
-    @IBOutlet weak var liveCounterLabel: UILabel!
+    weak var liveCounterLabel: UILabel!
     @IBOutlet weak var counterLabel: UILabel!
     @IBOutlet weak var addBtn: UIButton!
     
@@ -21,6 +21,7 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .yellow
+        self.liveCounterLabel = self.view.viewWithTag(41) as? UILabel
         VM.$counter
             .receive(on: DispatchQueue.main)
             .sink { val in
