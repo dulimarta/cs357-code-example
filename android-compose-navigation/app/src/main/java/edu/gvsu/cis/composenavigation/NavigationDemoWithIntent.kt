@@ -5,11 +5,13 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -27,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import edu.gvsu.cis.composenavigation.ui.theme.ComposeNavigationTheme
 
 @Composable
-fun NavigationDemo() {
+fun NavigationDemoWithIntent(modifier:Modifier = Modifier) {
     var firstValue by rememberSaveable {
         mutableStateOf("")
     }
@@ -48,14 +50,14 @@ fun NavigationDemo() {
                     val p = it.getIntExtra("product", 0)
                     sum = s
                     product = p
-//                    print("Sum is $sum")
                 }
-                println(it.data)
             }
         }
     val thisContext = LocalContext.current
     val thisActivity = thisContext as? Activity
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(
+        modifier = modifier.background(Color.Yellow).padding(16.dp).wrapContentHeight()) {
+        Text("The top-half is Intent-Based")
         TextField(value = firstValue, onValueChange = {
             firstValue = it
         }, label = {
@@ -69,12 +71,12 @@ fun NavigationDemo() {
 
         Row(
             horizontalArrangement = Arrangement.Start,
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth().wrapContentHeight()
         ) {
             Button(onClick = {
                 val toGreen = Intent(thisContext, GreenActivity::class.java)
-                toGreen.putExtra("first", firstValue.toIntOrNull() ?: 0)
-                toGreen.putExtra("second", secondValue.toIntOrNull() ?: 0)
+                toGreen.putExtra("first", firstValue.trim().toIntOrNull() ?: 0)
+                toGreen.putExtra("second", secondValue.trim().toIntOrNull() ?: 0)
                 thisActivity?.startActivity(toGreen)
             }, colors = ButtonDefaults.buttonColors(Color.hsl(150f, 0.5f, 0.6f))) {
                 Text("1-way")
@@ -101,6 +103,6 @@ fun NavigationDemo() {
 @Composable
 fun GreetingPreview() {
     ComposeNavigationTheme {
-        NavigationDemo()
+        NavigationDemoWithIntent()
     }
 }

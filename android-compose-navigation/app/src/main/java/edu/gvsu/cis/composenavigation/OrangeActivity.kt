@@ -34,9 +34,9 @@ class OrangeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val n1 = intent?.getIntExtra("first", 0) ?: 0
-                    val n2 = intent?.getIntExtra("second", 0)  ?: 0
-                    OrangeUI(n1, n2)
+                    val n1 = intent?.getIntExtra("first", 0)
+                    val n2 = intent?.getIntExtra("second", 0)
+                    OrangeUI(n1 ?: 0, n2 ?: 0)
                 }
             }
         }

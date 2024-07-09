@@ -32,9 +32,9 @@ class GreenActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val n1 = intent?.getIntExtra("first", 0)!!
-                    val n2 = intent?.getIntExtra("second", 0)!!
-                    GreenUI(n1, n2)
+                    val n1 = intent?.getIntExtra("first", 0)
+                    val n2 = intent?.getIntExtra("second", 0)
+                    GreenUI(n1 ?: 0, n2 ?: 0)
                 }
             }
         }
@@ -49,7 +49,6 @@ fun GreenUI(num1: Int, num2: Int, modifier: Modifier = Modifier) {
         Text(
             text = "Received values: $num1 and $num2!",
             fontSize = 22.sp,
-
         )
 
         Button(onClick = { thisActivity?.finish() }) {

@@ -136,13 +136,14 @@ fun CountWithSavableMutableState() {
 }
 @Composable
 fun CountWithViewModel(vm: MainActivityViewModel = viewModel()) {
+    val countState by vm.counter.observeAsState()
     Row(verticalAlignment = Alignment.CenterVertically) {
         Button(onClick = {
             vm.countUp()
         }, colors = ButtonDefaults.buttonColors(Color.Green)) {
             Text("+1")
         }
-        Text("Count is ${vm.counter}", modifier = Modifier.padding(start = 16.dp))
+        Text("Count is ${countState}", modifier = Modifier.padding(start = 16.dp))
     }
 }
 
