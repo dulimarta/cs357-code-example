@@ -1,3 +1,9 @@
 GoogleService-Info.plist
+**/google-services.json
 Pods
 .DS_Store
+recycler/
+**/**/deploymentTargetDropDown.xml
+ios-livedata/ios-livedata.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad/UserInterfaceState.xcuserstate
+ios-navigation-data/ios-navigation-data.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad/UserInterfaceState.xcuserstate
+ios-navigation-data/ios-navigation-data.xcodeproj/xcuserdata/dulimarh.xcuserdatad/xcschemes/xcschememanagement.plist

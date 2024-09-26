@@ -5,18 +5,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 data class PersonSimplified(val name: String, val email: String, val imageURL: String)
 class MyViewModel : ViewModel() {
+    // MutableList is Kotlin specific
+    // You can replace MutableList below with other Java collection types that work
     private val _persons =  MutableLiveData<MutableList<PersonSimplified>>(mutableListOf())
+    private val _downloadComplete = MutableLiveData(false)
     val persons: LiveData<MutableList<PersonSimplified>> get() = _persons
+    val downloadComplete: LiveData<Boolean> get() = _downloadComplete
     var apiEndpoint: RandomUserApi
     val eBirdEndPoint: EBirdApi
 
     init {
         apiEndpoint = RandomUserClient.getInstance().create(RandomUserApi::class.java)
         eBirdEndPoint = EBirdClient.getInstance().create(EBirdApi::class.java)
+        getNames(3) // Show the first 3 names
     }
 
      fun getNames(count:Int) {
@@ -30,15 +36,15 @@ class MyViewModel : ViewModel() {
                         email = it.email,
                         imageURL = it.picture.thumbnail)
                 })
+                // Must use  postValue to update live data from a non-main thread
+                delay(2500) // Intentional delay so you can see the progress bar
                 _persons.postValue(_persons.value)
+                _downloadComplete.postValue(true)
             }
-
-
         }
     }
 
-    fun getEBirdRegions(): Boolean {
-        var outcome: Boolean = false
+    fun getEBirdRegions() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = eBirdEndPoint.getAdjacentRegionsTo("US-MI")
             if (response.isSuccessful()) {
@@ -47,13 +53,10 @@ class MyViewModel : ViewModel() {
                     for (r in regions) {
                         println(r)
                     }
-                    outcome = true
                 }
             } else {
                 println("HTTP Error ${response.code()} ${response.message()}")
-                outcome = false
             }
         }
-        return outcome
     }
 }

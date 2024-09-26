@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainVC" customModule="ios_livedata" customModuleProvider="target">
+            <connections>
+                <outlet property="addBtn" destination="Jbl-vp-DQj" id="c8L-Rq-NiQ"/>
+                <outlet property="counterLabel" destination="vg4-Cv-8Nf" id="0ah-N9-Eal"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbl-vp-DQj">
+                    <rect key="frame" x="163" y="112" width="67" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Add 1"/>
+                    <connections>
+                        <action selector="addOneClicked:" destination="-1" eventType="touchUpInside" id="PBa-na-c3g"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Counter X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg4-Cv-8Nf">
+                    <rect key="frame" x="158" y="179" width="77" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" tag="41" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Counter Y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0T-OX-r9P">
+                    <rect key="frame" x="140.66666666666666" y="216" width="111.66666666666666" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can you reach 15?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zeg-nZ-X34">
+                    <rect key="frame" x="16" y="75" width="139.33333333333334" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Jbl-vp-DQj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0rq-zi-0Yz"/>
+                <constraint firstItem="Zeg-nZ-X34" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="H9n-yH-tZp"/>
+                <constraint firstItem="vg4-Cv-8Nf" firstAttribute="centerX" secondItem="Jbl-vp-DQj" secondAttribute="centerX" id="Hfm-2H-LQh"/>
+                <constraint firstItem="Jbl-vp-DQj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="I4S-U6-GPB"/>
+                <constraint firstItem="Zeg-nZ-X34" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="Kzy-tc-dyH"/>
+                <constraint firstItem="vg4-Cv-8Nf" firstAttribute="top" secondItem="Jbl-vp-DQj" secondAttribute="bottom" constant="32" id="Lev-1t-4io"/>
+                <constraint firstItem="p0T-OX-r9P" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="S13-b7-EXt"/>
+                <constraint firstItem="Jbl-vp-DQj" firstAttribute="top" secondItem="Zeg-nZ-X34" secondAttribute="bottom" constant="16" id="cMa-Xz-pVb"/>
+                <constraint firstItem="p0T-OX-r9P" firstAttribute="top" secondItem="vg4-Cv-8Nf" secondAttribute="bottom" constant="16" id="tI2-n0-MVL"/>
+            </constraints>
+            <point key="canvasLocation" x="53" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
