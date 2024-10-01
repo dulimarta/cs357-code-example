@@ -26,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun NavigationDemoWithRoute(navController: NavHostController, modifier: Modifier = Modifier) {
+    var roundedPop = rememberSaveable { mutableStateOf(1000) }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -37,11 +38,12 @@ fun NavigationDemoWithRoute(navController: NavHostController, modifier: Modifier
         NavHost(navController, startDestination = "main") {
             composable("main") {
                 val newPop = it.savedStateHandle.get<Int>("rounded")
-                it.savedStateHandle.remove<Int>("rounded")
                 newPop?.let {
                     println("Rounded population is $it")
+                    roundedPop.value = it
                 }
-                MainScreen(navController)
+                it.savedStateHandle.remove<Int>("rounded")
+                MainScreen(navController, roundedPop.value)
             }
             composable("details/{city}/{population}") {
                 it.arguments?.let {
@@ -60,7 +62,7 @@ fun NavigationDemoWithRoute(navController: NavHostController, modifier: Modifier
 }
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavController, population: Int) {
     var first by rememberSaveable {
         mutableStateOf("")
     }
@@ -85,7 +87,7 @@ fun MainScreen(navController: NavController) {
             Button(onClick = {
                 navController.navigate("details/Grand Rapids/387612")
             }) {
-                Text("2-way")
+                Text("2-way $population")
 
             }
         }
