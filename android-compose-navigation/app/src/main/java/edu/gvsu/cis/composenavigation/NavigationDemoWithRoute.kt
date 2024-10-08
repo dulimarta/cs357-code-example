@@ -23,7 +23,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
 
+@Serializable
+sealed class Screen {
+
+    @Serializable
+    data class Main(val pop: Int)
+}
 @Composable
 fun NavigationDemoWithRoute(navController: NavHostController, modifier: Modifier = Modifier) {
     var roundedPop = rememberSaveable { mutableStateOf(1000) }
