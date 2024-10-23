@@ -16,9 +16,9 @@ class MyViewModel: ViewModel() {
 
     }
 
-    fun getUsers() {
+    fun getUsers(count:Int = 5) {
         viewModelScope.launch(Dispatchers.IO) {
-            val rNames = apiEndpoint.getRandomNames(25)
+            val rNames = apiEndpoint.getRandomNames(count)
             rNames.body()?.results?.forEach {
                 users.add(it)
             }
