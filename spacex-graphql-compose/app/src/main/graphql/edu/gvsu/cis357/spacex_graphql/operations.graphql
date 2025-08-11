@@ -3,3 +3,17 @@ query CEO {
         ceo
     }
 }
+
+query AllLaunches {
+    launches {
+        mission_name
+        launch_date_utc
+#        details
+        links {
+#            article_link
+            flickr_images
+            video_link
+        }
+    }
+
+}
