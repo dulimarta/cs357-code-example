@@ -1,10 +1,8 @@
-package edu.gvsu.cis357.spacex_graphql
+package edu.gvsu.cis357.spacex_rest
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,9 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,20 +26,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import edu.gvsu.cis357.spacex_graphql.ui.theme.SpaceXGraphQLComposeTheme
+import edu.gvsu.cis357.spacex_rest.model.LaunchItem
+import edu.gvsu.cis357.spacex_rest.ui.theme.SpaceXRetrofitComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContent {
             val vm1 = MainViewModel()
-            SpaceXGraphQLComposeTheme {
+            SpaceXRetrofitComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        modifier = Modifier.padding(innerPadding),
-                        vm1
+                        modifier = Modifier.padding(innerPadding), vm1
                     )
                 }
             }
@@ -52,39 +47,31 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier, vm : MainViewModel) {
-    val name =  vm.ceoName.collectAsState()
+fun Greeting(modifier: Modifier = Modifier, vm: MainViewModel) {
+    val name = vm.ceoName.collectAsState()
     val launches = vm.launches.collectAsState()
     val loading = rememberSaveable { mutableStateOf(false) }
-    val selectedLaunch = rememberSaveable { mutableStateOf<AllLaunchesQuery.Launch?>(null) }
-    Box(modifier = modifier.fillMaxSize()) {
-        Column(
-            modifier = modifier
-                .padding(all = 8.dp)
-//                .fillMaxSize()
-        ) {
+    Box(modifier = modifier.fillMaxSize().padding(8.dp)) {
+        Column {
             if (name.value != null) {
                 loading.value = false
                 Text(
-                    text = "Hello ${name.value}"
+                    text = "Hello ${name.value}",
+                    modifier = modifier
                 )
             } else if (loading.value) {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                LinearProgressIndicator(Modifier.fillMaxWidth())
             }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
                 Button(onClick = {
                     loading.value = true
-                    vm.sendCompanyQuery()
+                    vm.sendCompanyRequest()
                 }) {
                     Text("Company")
                 }
                 Button(onClick = {
                     loading.value = true
-                    vm.sendMissionQuery()
+                    vm.sendLaunchesRequest()
                 }) {
                     Text("Missions")
                 }
@@ -92,25 +79,19 @@ fun Greeting(modifier: Modifier = Modifier, vm : MainViewModel) {
             if (launches.value.size > 0) {
                 loading.value = false
                 LazyColumn {
-                    itemsIndexed(launches.value) { idx, item ->
+                    itemsIndexed(launches.value) {idx,item ->
                         LaunchItem(idx, item) {
-                            println("Selected $it")
-                            selectedLaunch.value = launches.value.get(idx)
+                            println("Selection?")
                         }
                     }
                 }
-            }
-        }
-        if (selectedLaunch.value != null) {
-            LaunchDialog(selectedLaunch.value!!) {
-                selectedLaunch.value = null
             }
         }
     }
 }
 
 @Composable
-private fun LaunchItem(pos: Int, z: AllLaunchesQuery.Launch, itemClicked: (String) -> Unit) {
+private fun LaunchItem(pos: Int, z: LaunchItem, itemClicked: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -119,31 +100,15 @@ private fun LaunchItem(pos: Int, z: AllLaunchesQuery.Launch, itemClicked: (Strin
             .padding(all = 4.dp)
             .clickable(onClick = { itemClicked(z.id!!) })
     ) {
-        Text("${z.mission_name!!} (${z.id!!})")
-        Text(z.launch_date_utc.toString())
+        Text("${z.name!!} (${z.id!!})")
+        Text(z.date_utc.toString())
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun LaunchDialog(z: AllLaunchesQuery.Launch, onDismiss: () -> Unit) {
-    BasicAlertDialog (
-        onDismissRequest = onDismiss,
-    ) {
-        Column(modifier = Modifier.background(Color.White).padding(8.dp)) {
-            Text("Mission ${z.mission_name}", fontSize = 20.sp)
-            Text("Launch site ${z.launch_site?.site_name_long ?: "Unknown"}")
-        }
-
-    }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-
-    SpaceXGraphQLComposeTheme {
+    SpaceXRetrofitComposeTheme {
         Greeting(vm = MainViewModel())
     }
 }
