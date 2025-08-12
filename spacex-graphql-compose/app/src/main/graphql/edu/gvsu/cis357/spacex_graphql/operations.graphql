@@ -6,14 +6,23 @@ query CEO {
 
 query AllLaunches {
     launches {
+        id
         mission_name
-        launch_date_utc
-#        details
-        links {
-#            article_link
-            flickr_images
-            video_link
+        launch_site {
+            site_name_long
         }
+        launch_date_utc
     }
+}
 
+
+query SiteQuery($launchId: ID!) {
+
+    launch(id: $launchId) {
+        launch_site {
+            site_name
+        }
+        launch_date_local
+        launch_success
+    }
 }
