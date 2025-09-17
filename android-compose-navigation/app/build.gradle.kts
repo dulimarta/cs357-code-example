@@ -64,7 +64,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.1")
     implementation("com.google.android.gms:play-services-basement:18.4.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
