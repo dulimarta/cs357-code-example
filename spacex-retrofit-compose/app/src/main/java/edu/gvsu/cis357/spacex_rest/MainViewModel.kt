@@ -35,7 +35,7 @@ class MainViewModel : ViewModel() {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(httpClient)
             .build()
-            .create(SpacexApi::class.java)
+            .create<SpacexApi>(SpacexApi::class.java)
     }
 
     init {
