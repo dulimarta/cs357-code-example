@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import edu.gvsu.cis.composenavigation.OrderViewModel
 
 @Composable
@@ -28,10 +29,11 @@ fun ShoppingCartScreen(
     Column(modifier = Modifier
         .background(Color(0x45120012))
         .fillMaxSize()) {
-        Text("This is your Shopping Cart")
+        Text("This is your Shopping Cart",
+            fontSize = 20.sp)
         LazyColumn {
             itemsIndexed(items = items) { idx, item ->
-                Text("$idx $item")
+                Text("Item-${idx + 1}: $item")
             }
         }
 
@@ -50,7 +52,8 @@ fun ShoppingCartScreen(
             Button({ onSelectPayment(500f) }) {
                 Text("Payment")
             }
-            Button({onCheckOut(125f)}) {
+            Button({onCheckOut(125f)},
+                enabled = shipTo != null && payWith != null) {
                 Text("Checkout")
             }
         }

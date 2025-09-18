@@ -3,7 +3,7 @@ package edu.gvsu.cis.composenavigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class Screen {
+sealed class Route {
 
     @Serializable
     data object SelectItems

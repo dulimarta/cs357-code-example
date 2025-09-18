@@ -9,7 +9,7 @@ import edu.gvsu.cis.composenavigation.OrderViewModel
 @Composable
 fun SelectItemsScreen(vm: OrderViewModel, onPlaceOrder: () -> Unit) {
     Column {
-        Text("This is SelectItems")
+        Text("You are about to buy Avocado & Celery")
         Button(
             onClick = {
                 vm.addOrders(listOf("Celery", "Avocado"))
