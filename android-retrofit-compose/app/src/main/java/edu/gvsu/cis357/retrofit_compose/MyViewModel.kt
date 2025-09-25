@@ -19,11 +19,12 @@ class MyViewModel: ViewModel() {
     fun getUsers(count:Int = 5) {
         viewModelScope.launch(Dispatchers.IO) {
             val rNames = apiEndpoint.getRandomNames(count)
-            rNames.body()?.results?.forEach {
-                users.add(it)
+            rNames.body()?.let {
+                it.results?.forEach {p: Person ->
+                    users.add(p)
+                }
             }
         }
-
     }
     override fun onCleared() {
         super.onCleared()
