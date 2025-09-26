@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,40 +25,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val myViewModel by viewModels<TicketViewModel>()
         setContent {
             AppArchitectureComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    TicketScreen(Modifier.padding(innerPadding), myViewModel)
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    var count1 by remember { mutableStateOf(0) }
-    Column {
-        Text(
-            text = "Hello $count1",
-            fontSize = 32.sp,
-            modifier = modifier
-        )
-        Button(onClick = {
-            count1 = count1.inc()
-        }) {
-            Text("Add 1")
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppArchitectureComposeTheme {
-        Greeting("Android")
-    }
-}

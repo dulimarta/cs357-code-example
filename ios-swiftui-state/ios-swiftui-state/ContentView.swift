@@ -25,7 +25,7 @@ struct ContentView: View {
             }
         }
 //        .padding()
-        .background(Color.red)
+//        .background(Color.red)
     }
 }
 struct ColorView: View {
