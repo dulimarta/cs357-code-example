@@ -7,3 +7,6 @@ recycler/
 ios-livedata/ios-livedata.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad/UserInterfaceState.xcuserstate
 ios-navigation-data/ios-navigation-data.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad/UserInterfaceState.xcuserstate
 ios-navigation-data/ios-navigation-data.xcodeproj/xcuserdata/dulimarh.xcuserdatad/xcschemes/xcschememanagement.plist
+*.xcuserstate
+/ios-swiftui-navigation-stack/ios-swiftui-navigation-stack.xcodeproj/xcuserdata
+/ios-swiftui-navigation-stack/ios-swiftui-navigation-stack.xcodeproj/project.xcworkspace/xcuserdata
