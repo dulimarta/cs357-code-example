@@ -16,6 +16,7 @@ struct SelectPaymentView: View {
     }
     var body: some View {
         Text("Select Payment").font(.title)
+        Text("How are you going to pay the total of \(totalCharge, specifier: "%.2f") ?")
         HStack {
             Button("PayPay") {
                 self.onPaymentSelected("PayPay")

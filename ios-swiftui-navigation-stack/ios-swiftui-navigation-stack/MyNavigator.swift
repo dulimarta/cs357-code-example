@@ -9,7 +9,7 @@ import SwiftUI
 enum Route: Hashable {
     case ShoppingCart
     case SelectShippingAddress
-    case SelectPaymentMethod
+    case SelectPaymentMethod(totalCharge: Float)
     case Checkout
 }
 
@@ -17,7 +17,7 @@ class MyNavigator: ObservableObject {
     @Published var navPath: [Route] = []
     // payload is a stack for exchanging data between a parent screen
     // and its immediate child screen
-    var payload: Array<[String:Any]> = []
+    var payload: Array<Dictionary<String,Any>> = []
     
     func navigate(to dest: Route) {
         navPath.append(dest)
@@ -53,8 +53,8 @@ class MyNavigator: ObservableObject {
     }
     
     func currentPayloadGet<T>(key:String) -> T {
-        let lastItem = payload.last!
-        return lastItem[key] as! T
+        let lastPayload = payload.last!
+        return lastPayload[key] as! T
     }
     
 }

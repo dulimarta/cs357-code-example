@@ -23,8 +23,9 @@ struct ContentView: View {
                     ShoppingCartView(viewModel: orderViewModel,
                                      shipAddr: selected, paymentMethod: payment) {
                         navCtrl.navigate(to: Route.SelectShippingAddress)
-                    } onSelectPayment: { a in
-                        navCtrl.navigate(to: .SelectPaymentMethod)
+                    } onSelectPayment: { total in
+                        navCtrl
+                            .navigate(to: .SelectPaymentMethod(totalCharge: total))
                     } onCheckout: {
                         navCtrl.navigate(to: .Checkout)
                     }
@@ -35,8 +36,8 @@ struct ContentView: View {
                         navCtrl.navigateBack()
                     }
                     
-                case .SelectPaymentMethod:
-                    SelectPaymentView(totalCharge: 100.0) { pay in
+                case .SelectPaymentMethod(let total):
+                    SelectPaymentView(totalCharge: total) { pay in
                         navCtrl.previousPayloadSet(key: "PAY", value: pay)
                         navCtrl.navigateBack()
                     }
