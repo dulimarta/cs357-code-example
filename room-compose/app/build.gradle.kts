@@ -62,9 +62,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
     //Room
     implementation(libs.androidx.room.runtime)
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
 
-    ksp("androidx.room:room-compiler:2.6.1")
+    ksp(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation("io.github.serpro69:kotlin-faker:1.6.0")
     testImplementation(libs.junit)
