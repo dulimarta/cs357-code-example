@@ -24,6 +24,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,6 +53,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun RoomPlayground(modifier: Modifier = Modifier, vm: MyViewModel = viewModel()) {
+    val guests by vm.guests.collectAsState(emptyList())
     Column(modifier = modifier.padding(16.dp)) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
@@ -58,10 +61,10 @@ fun RoomPlayground(modifier: Modifier = Modifier, vm: MyViewModel = viewModel())
             }, modifier = Modifier.alignByBaseline()) {
                 Text("Add new")
             }
-            Text("Number of guests ${vm.guests.size}", modifier = Modifier.alignByBaseline())
+            Text("Number of guests ${guests.size}", modifier = Modifier.alignByBaseline())
         }
         LazyColumn(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            itemsIndexed(vm.guests) { pos, g ->
+            itemsIndexed(guests) { pos, g ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -82,9 +85,6 @@ fun RoomPlayground(modifier: Modifier = Modifier, vm: MyViewModel = viewModel())
                 }
             }
         }
-    }
-    LaunchedEffect(Unit) {
-        vm.loadAll()
     }
 }
 

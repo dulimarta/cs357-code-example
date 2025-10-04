@@ -46,8 +46,8 @@ interface PersonDao {
 
     @Query("SELECT * FROM guest WHERE id = :id")
     suspend fun getGuest(id: Int): Guest
-//    fun getGuest(id:Int): Flow<Guest>
 
+    // Do not declare suspend when returning a Flow
     @Query("SELECT * FROM guest ORDER BY firstName ASC")
     fun getAllGuests(): Flow<List<Guest>>
 }
