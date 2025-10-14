@@ -17,9 +17,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        ksp {
-            arg("room.schemaLocation", "$projectDir/cs357-schema")
-        }
+    }
+
+    ksp {
+        arg("room.schemaLocation", "$projectDir/cs357-schema")
     }
 
     buildTypes {
@@ -44,7 +45,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -15,8 +15,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Entity
 data class Guest(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val firstName: String,
     val lastName: String
 )
