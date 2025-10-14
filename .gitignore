@@ -1,5 +1,6 @@
 GoogleService-Info.plist
 **/google-services.json
+**/xcuserdata/dulimarh*
 Pods
 .DS_Store
 recycler/
