@@ -6,49 +6,61 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import edu.gvsu.cis357.android_firebase_compose.ui.theme.AndroidfirebasecomposeTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    authViewModel: AuthViewModel = AuthViewModel(),
+    authViewModel: AuthViewModel,
     onLoginSuccess: (String) -> Unit
 ) {
     var username by remember { mutableStateOf("me@test.com") }
     var password by remember { mutableStateOf("1234567") }
-    var authSuccess = authViewModel.authSuccess.observeAsState()
-
+    var hasLoginError by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val errorMsg by authViewModel.loginError.collectAsState()
+    LaunchedEffect(hasLoginError) {
+        if (hasLoginError) {
+            delay(1200L)
+            hasLoginError = false
+        }
+    }
     Column(modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)) {
-        OutlinedTextField(username,
-            isError = authSuccess.value == false,
+        OutlinedTextField(
+            username,
+            isError = hasLoginError,
             onValueChange = { username = it },
             label = { Text("Email") })
         OutlinedTextField(
-            password, isError = authSuccess.value == false, onValueChange = { password = it },
+            password, isError = hasLoginError, onValueChange = { password = it },
             label = { Text("Password") }, visualTransformation = PasswordVisualTransformation()
         )
         Button(onClick = {
-            authViewModel.authenticate(username, password) {
-                if (it != null) {
-//                    println("Logged in as $it")
-                    onLoginSuccess(it)
-                } else {
-//                    println("Login failed")
-                }
+            scope.launch {
+                val whoami = authViewModel.authenticate(username, password)
+                if (whoami != null)
+                    onLoginSuccess(whoami)
+                else
+                    hasLoginError = true
             }
         }) {
             Text("Login")
         }
+        if (errorMsg != null)
+            Text(errorMsg!!, color = androidx.compose.material3.MaterialTheme.colorScheme.error)
     }
 }
 
@@ -57,8 +69,8 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     AndroidfirebasecomposeTheme {
-        LoginScreen() {
-            println("Logged in as $it")
-        }
+//        LoginScreen() {
+//            println("Logged in as $it")
+//        }
     }
 }

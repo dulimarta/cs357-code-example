@@ -1,31 +1,24 @@
 package edu.gvsu.cis357.android_firebase_compose
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.tasks.await
 
 class AuthViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance()
-    private val _authSuccess = MutableLiveData<Boolean>()
-    val authSuccess: LiveData<Boolean?> get() = _authSuccess
+    private var _loginError = MutableStateFlow<String?>(null)
+    val loginError = _loginError.asStateFlow()
 
-    fun authenticate(email:String, password:String, onAuthenticated: (String) -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-
-                    _authSuccess.postValue(true)
-                    onAuthenticated(it.user!!.uid)
-                }
-                .addOnFailureListener {
-                    println("Cannot login ${it.message}")
-                    _authSuccess.postValue(false)
-                }
+    suspend fun authenticate(email: String, password: String): String? {
+        _loginError.value = null
+        try {
+            val result = auth.signInWithEmailAndPassword(email, password).await()
+            return result.user?.uid
+        } catch (e: Exception) {
+            _loginError.value = e.localizedMessage
+            return null
         }
     }
-
 }

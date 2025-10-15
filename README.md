@@ -18,3 +18,6 @@ project.
 Reference: [StackOverflow](https://stackoverflow.com/questions/28668252/android-studio-error-unsupported-modules-detected-compilation-is-not-supported)
 
 Also try to "Invalidate Caches" in Android Studio.
+
+Expect to see "Invalid JDK Path" or "Invalid Gradle Path" error message when loading Android examples. 
+JDK settings (and path settings in general) are unique per user/laptop.
