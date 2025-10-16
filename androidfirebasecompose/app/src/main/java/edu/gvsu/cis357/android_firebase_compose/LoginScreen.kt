@@ -1,6 +1,7 @@
 package edu.gvsu.cis357.android_firebase_compose
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -13,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +40,8 @@ fun LoginScreen(
             hasLoginError = false
         }
     }
-    Column(modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)) {
+    Column(modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp).fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally) {
         OutlinedTextField(
             username,
             isError = hasLoginError,

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import edu.gvsu.cis357.android_firebase_compose.data.Student
 import io.github.serpro69.kfaker.Faker
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,13 @@ class MyViewModel : ViewModel() {
 
     init {
         fetchMembers()
+        memberCollection.addSnapshotListener { qs, err ->
+            if (qs != null) {
+                for (chg in qs.documentChanges) {
+                    chg.document.toObject<Student>()
+                }
+            }
+        }
     }
 
     fun fetchMembers() {
@@ -34,7 +42,7 @@ class MyViewModel : ViewModel() {
             val qs = memberCollection.get().await()
             val students = mutableStateListOf<Student>()
             qs.documents.forEach {
-                it.toObject(Student::class.java)?.let { student ->
+                it.toObject<Student>()?.let { student ->
                     student.id = it.id // Save Firestore DocID
                     students.add(student)
                 }
@@ -43,16 +51,14 @@ class MyViewModel : ViewModel() {
         }
     }
 
-    fun deleteItem(pos: Int) {
-        if (pos < _allNames.value.size) {
-            val victim = allNames.value[pos]
-            _allNames.update {
-                it.filterIndexed { index, _ -> index != pos }
-            }
-            viewModelScope.launch(Dispatchers.IO) {
-                memberCollection.document(victim.id).delete().await()
-            }
+    fun deleteItem(sid: String) {
+        _allNames.update {
+            it.filter { it.id != sid }
         }
+        viewModelScope.launch(Dispatchers.IO) {
+            memberCollection.document(sid).delete().await()
+        }
+
     }
 
     fun addRandomName() {
@@ -65,6 +71,18 @@ class MyViewModel : ViewModel() {
             _allNames.update {
                 it + newStudent
             }
+        }
+    }
+
+    fun sortByFirstName() {
+        _allNames.update {
+            it.sortedBy { it.firstName }
+        }
+    }
+
+    fun sortByLastName() {
+        _allNames.update {
+            it.sortedBy { it.lastName }
         }
     }
 }
