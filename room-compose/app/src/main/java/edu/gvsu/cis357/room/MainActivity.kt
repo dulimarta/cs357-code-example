@@ -85,6 +85,15 @@ fun RoomPlayground(modifier: Modifier = Modifier, vm: MyViewModel = viewModel())
                 }
             }
         }
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)) {
+            Text("Sort By")
+            Button(onClick = { vm.sortByFirstName()}) {
+                Text("First Name")
+            }
+            Button(onClick = { vm.sortByLastName()}) {
+                Text("Last Name")
+            }
+        }
     }
 }
 

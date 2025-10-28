@@ -47,8 +47,11 @@ interface PersonDao {
     suspend fun getGuest(id: Int): Guest
 
     // Do not declare suspend when returning a Flow
-    @Query("SELECT * FROM guest ORDER BY firstName ASC")
+    @Query("SELECT * FROM guest")
     fun getAllGuests(): Flow<List<Guest>>
+
+    @Query("SELECT * FROM guest ORDER BY :field ASC")
+    fun getAllGuestsSortedBy(field: String): Flow<List<Guest>>
 }
 
 @Database(

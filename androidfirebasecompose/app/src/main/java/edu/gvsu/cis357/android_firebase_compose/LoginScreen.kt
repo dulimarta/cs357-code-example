@@ -3,7 +3,9 @@ package edu.gvsu.cis357.android_firebase_compose
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,7 +36,7 @@ fun LoginScreen(
     var password by remember { mutableStateOf("1234567") }
     var hasLoginError by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    val errorMsg by authViewModel.loginError.collectAsState()
+    val loginState by authViewModel.loginState.collectAsState()
     LaunchedEffect(hasLoginError) {
         if (hasLoginError) {
             delay(1200L)
@@ -61,9 +64,11 @@ fun LoginScreen(
             }
         }) {
             Text("Login")
+            if (loginState.inProgress)
+                CircularProgressIndicator(color = Color.Yellow, modifier = Modifier.size(32.dp))
         }
-        if (errorMsg != null)
-            Text(errorMsg!!, color = androidx.compose.material3.MaterialTheme.colorScheme.error)
+        if (loginState.error != null)
+            Text(loginState.error!!, color = androidx.compose.material3.MaterialTheme.colorScheme.error)
     }
 }
 

@@ -1,0 +1,24 @@
+{
+  "originHash" : "7fdba94b215e4bea4cfc4e5584a570d6e98a272492120e849e790bbac33c51f1",
+  "pins" : [
+    {
+      "identity" : "fakery",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vadymmarkov/Fakery",
+      "state" : {
+        "revision" : "71cb3bf36a808534659d1248780c2bf3c4c4fc91",
+        "version" : "5.1.0"
+      }
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "18497b68fdbb3a09528d260a0a0e1e7e61c8c53d"
+      }
+    }
+  ],
+  "version" : 3
+}

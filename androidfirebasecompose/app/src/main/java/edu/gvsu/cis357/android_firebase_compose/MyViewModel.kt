@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import edu.gvsu.cis357.android_firebase_compose.data.Student
@@ -23,15 +25,34 @@ class MyViewModel : ViewModel() {
     val lastDocId = _latestDocID.asStateFlow()
 
     val myDB = Firebase.firestore
+    lateinit var registration: ListenerRegistration
     val memberCollection = myDB.collection("members")
+    override fun onCleared() {
+        super.onCleared()
+        this.registration.remove()
+    }
+
     val faker = Faker()
 
     init {
-        fetchMembers()
-        memberCollection.addSnapshotListener { qs, err ->
+//        fetchMembers()
+        this.registration = memberCollection.addSnapshotListener { qs, err ->
             if (qs != null) {
                 for (chg in qs.documentChanges) {
-                    chg.document.toObject<Student>()
+                    val z = chg.document.toObject<Student>()
+                    print("${z.firstName} is ${chg.type}")
+                    if (chg.type == DocumentChange.Type.ADDED) {
+                        _allNames.update {
+                            it + z
+                        }
+                    }
+                    else if (chg.type == DocumentChange.Type.REMOVED) {
+                        _allNames.update {
+                            it.filter { s ->
+                                s.id != chg.document.id
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -52,9 +73,9 @@ class MyViewModel : ViewModel() {
     }
 
     fun deleteItem(sid: String) {
-        _allNames.update {
-            it.filter { it.id != sid }
-        }
+//        _allNames.update {
+//            it.filter { it.id != sid }
+//        }
         viewModelScope.launch(Dispatchers.IO) {
             memberCollection.document(sid).delete().await()
         }
@@ -68,9 +89,9 @@ class MyViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val z = memberCollection.add(newStudent).await()
             _latestDocID.value = z.id
-            _allNames.update {
-                it + newStudent
-            }
+//            _allNames.update {
+//                it + newStudent
+//            }
         }
     }
 
