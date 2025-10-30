@@ -1,6 +1,5 @@
 package edu.gvsu.cis357.room.data
 
-import androidx.room.AutoMigration
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Delete
@@ -55,7 +54,7 @@ interface PersonDao {
 }
 
 @Database(
-    entities = [Guest::class, PartyTable::class], version = 1, exportSchema = true
+    entities = [Guest::class, PartyTable::class], version = 1, exportSchema = false
 )
 abstract class MyDatabase : RoomDatabase() {
     abstract fun getInstance(): PersonDao
