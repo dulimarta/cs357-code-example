@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {
-            val vm: MyViewModel = viewModels<MyViewModel>().value
+            val vm: MyViewModel by viewModels<MyViewModel>()
             RetrofitcomposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     RandomNamesWithRetrofit(
@@ -50,14 +51,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RandomNamesWithRetrofit(modifier: Modifier = Modifier, vm: MyViewModel) {
     Column(modifier = modifier.fillMaxHeight(1f)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.padding(8.dp)) {
             Button(onClick = {
                 vm.getUsers(5)
             }) {
                 Text("Get more names")
             }
             if (!vm.users.isEmpty()) {
-                Text("You have ${vm.users.size} names")
+                Text("You have ${vm.users.size} names", modifier = Modifier.padding(horizontal = 4.dp))
             }
         }
         LazyColumn {

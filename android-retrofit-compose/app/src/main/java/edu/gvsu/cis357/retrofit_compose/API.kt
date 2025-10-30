@@ -33,9 +33,9 @@ object RandomUserClient {
     val okHttpClientBuilder  = OkHttpClient.Builder()
 
     fun getInstance(): Retrofit {
-        // These two lines are optional, but can be usefule for debugging
-//        logInterceptor.level = HttpLoggingInterceptor.Level.BASIC
-//        okHttpClientBuilder.addInterceptor(logInterceptor)
+        // These two lines are optional, but can be useful for debugging
+        logInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+        okHttpClientBuilder.addInterceptor(logInterceptor)
 
         return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

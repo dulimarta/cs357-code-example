@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "edu.gvsu.cis357.retrofit_compose"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "edu.gvsu.cis357.retrofit_compose"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -51,12 +51,12 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.5.0")
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.2.1")
     // Async Image
-    implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc01")
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.0-rc01")
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
