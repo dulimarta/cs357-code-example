@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "2.2.21"
 }
 
 android {
@@ -57,6 +58,10 @@ dependencies {
     // Async Image
     implementation("io.coil-kt.coil3:coil-compose:3.3.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
+    // Navigation
+    implementation("androidx.navigation:navigation-runtime-ktx:2.9.5")
+    implementation("androidx.navigation:navigation-compose:2.9.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
