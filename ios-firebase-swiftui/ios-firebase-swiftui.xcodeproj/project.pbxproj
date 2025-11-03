@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15E920ED2EB01A44009F8BFC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 15E920EC2EB01A44009F8BFC /* FirebaseAuth */; };
-		15E920EF2EB01A44009F8BFC /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 15E920EE2EB01A44009F8BFC /* FirebaseCore */; };
-		15E920F12EB01A44009F8BFC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 15E920F02EB01A44009F8BFC /* FirebaseFirestore */; };
 		15E9210A2EB053AC009F8BFC /* Fakery in Frameworks */ = {isa = PBXBuildFile; productRef = 15E921092EB053AC009F8BFC /* Fakery */; };
+		15E9211D2EB0FE13009F8BFC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 15E9211C2EB0FE13009F8BFC /* FirebaseAuth */; };
+		15E9211F2EB0FE13009F8BFC /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 15E9211E2EB0FE13009F8BFC /* FirebaseCore */; };
+		15E921212EB0FE13009F8BFC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 15E921202EB0FE13009F8BFC /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +31,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				15E9210A2EB053AC009F8BFC /* Fakery in Frameworks */,
-				15E920EF2EB01A44009F8BFC /* FirebaseCore in Frameworks */,
-				15E920ED2EB01A44009F8BFC /* FirebaseAuth in Frameworks */,
-				15E920F12EB01A44009F8BFC /* FirebaseFirestore in Frameworks */,
+				15E921212EB0FE13009F8BFC /* FirebaseFirestore in Frameworks */,
+				15E9211F2EB0FE13009F8BFC /* FirebaseCore in Frameworks */,
+				15E9211D2EB0FE13009F8BFC /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,10 +76,10 @@
 			);
 			name = "ios-firebase-swiftui";
 			packageProductDependencies = (
-				15E920EC2EB01A44009F8BFC /* FirebaseAuth */,
-				15E920EE2EB01A44009F8BFC /* FirebaseCore */,
-				15E920F02EB01A44009F8BFC /* FirebaseFirestore */,
 				15E921092EB053AC009F8BFC /* Fakery */,
+				15E9211C2EB0FE13009F8BFC /* FirebaseAuth */,
+				15E9211E2EB0FE13009F8BFC /* FirebaseCore */,
+				15E921202EB0FE13009F8BFC /* FirebaseFirestore */,
 			);
 			productName = "ios-firebase-swiftui";
 			productReference = 15E920DD2EB0184A009F8BFC /* ios-firebase-swiftui.app */;
@@ -110,8 +110,8 @@
 			mainGroup = 15E920D42EB0184A009F8BFC;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				15E920EB2EB01A44009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				15E921082EB053AC009F8BFC /* XCRemoteSwiftPackageReference "Fakery" */,
+				15E9211B2EB0FE13009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 15E920DE2EB0184A009F8BFC /* Products */;
@@ -366,14 +366,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		15E920EB2EB01A44009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 12.4.0;
-			};
-		};
 		15E921082EB053AC009F8BFC /* XCRemoteSwiftPackageReference "Fakery" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vadymmarkov/Fakery";
@@ -382,28 +374,36 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		15E9211B2EB0FE13009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		15E920EC2EB01A44009F8BFC /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 15E920EB2EB01A44009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		15E920EE2EB01A44009F8BFC /* FirebaseCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 15E920EB2EB01A44009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCore;
-		};
-		15E920F02EB01A44009F8BFC /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 15E920EB2EB01A44009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
 		15E921092EB053AC009F8BFC /* Fakery */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 15E921082EB053AC009F8BFC /* XCRemoteSwiftPackageReference "Fakery" */;
 			productName = Fakery;
+		};
+		15E9211C2EB0FE13009F8BFC /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15E9211B2EB0FE13009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		15E9211E2EB0FE13009F8BFC /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15E9211B2EB0FE13009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		15E921202EB0FE13009F8BFC /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15E9211B2EB0FE13009F8BFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

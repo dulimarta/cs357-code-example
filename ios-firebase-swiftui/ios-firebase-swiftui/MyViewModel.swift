@@ -16,7 +16,7 @@ class MyViewModel {
     let auth = Auth.auth()
     let fake = Faker.init()
     
-    private(set) var allMembers: Array<Member> = []
+    private(set) var allStudents: Array<Student> = []
     private(set) var uid: String? = nil
     
     init() {
@@ -27,16 +27,16 @@ class MyViewModel {
             }
             do {
                 for chg in  memberColl.documentChanges {
-                    var m = try chg.document.data(as: Member.self)
+                    var m = try chg.document.data(as: Student.self)
                     switch chg.type {
                     case .added:
-                        self.allMembers.append(m)
+                        self.allStudents.append(m)
                         //                        print("New document: \(m)")
                     case .modified:
                         print("Modified document: \(m)")
                     case .removed:
                         print("Removed document: \(m)")
-                        self.allMembers.removeAll { $0.id == m.id }
+                        self.allStudents.removeAll { $0.id == m.id }
                     }
                 }
             } catch {
@@ -46,7 +46,7 @@ class MyViewModel {
     }
     
     func addNewMember() {
-        let member = Member(
+        let member = Student(
             firstName: fake.name.firstName(),
             lastName: fake.name.lastName()
         )

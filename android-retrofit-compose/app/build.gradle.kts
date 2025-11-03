@@ -1,9 +1,16 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     kotlin("plugin.serialization") version "2.2.21"
 }
+
+val secretFile = rootProject.file("secret.properties")
+val secretProp = Properties()
+secretProp.load(FileInputStream(secretFile))
 
 android {
     namespace = "edu.gvsu.cis357.retrofit_compose"
@@ -17,6 +24,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "PEXEL_API_KEY", secretProp["PEXEL_API_KEY"] as String)
     }
 
     buildTypes {
@@ -36,12 +44,14 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
+    }
+    buildFeatures {
         compose = true
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
