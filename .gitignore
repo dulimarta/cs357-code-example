@@ -1,4 +1,4 @@
-GoogleService-Info.plist
+**/GoogleService-Info.plist
 **/google-services.json
 **/xcuserdata/dulimarh*
 Pods
@@ -11,13 +11,4 @@ ios-navigation-data/ios-navigation-data.xcodeproj/xcuserdata/dulimarh.xcuserdata
 *.xcuserstate
 /ios-swiftui-navigation-stack/ios-swiftui-navigation-stack.xcodeproj/xcuserdata
 /ios-swiftui-navigation-stack/ios-swiftui-navigation-stack.xcodeproj/project.xcworkspace/xcuserdata
-/firebase-auth/firebase-demo.xcodeproj/xcuserdata/dulimarh.xcuserdatad
-/firebase-auth/firebase-demo.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad
-/firebase-auth/firebase-demo.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad
-/firebase-auth/firebase-demo.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad
-/firebase-auth/firebase-demo.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad
-/firebase-auth/firebase-demo.xcodeproj/xcuserdata/dulimarh.xcuserdatad
-/firebase-auth/firebase-demo.xcodeproj/xcuserdata/dulimarh.xcuserdatad
-/firebase-auth/firebase-demo.xcodeproj/xcuserdata/dulimarh.xcuserdatad/xcschemes
-/firebase-auth/firebase-demo.xcodeproj/project.xcworkspace/xcuserdata/dulimarh.xcuserdatad
 *.plist

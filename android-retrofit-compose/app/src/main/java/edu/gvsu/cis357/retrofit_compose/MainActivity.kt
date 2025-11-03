@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -21,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -35,7 +38,8 @@ class MainActivity : ComponentActivity() {
             var selectedRoute by rememberSaveable { mutableStateOf(0) }
             val navCtrl = rememberNavController()
             RetrofitcomposeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize(),
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         NavigationBar {
                             NavigationBarItem(
@@ -44,7 +48,7 @@ class MainActivity : ComponentActivity() {
                                     selectedRoute = 0
                                     navCtrl.navigate(Route.RandomUser)
                                 },
-                                icon = {Icon(Icons.Default.Person, contentDescription = null)}
+                                icon = { Icon(Icons.Default.Person, contentDescription = null) }
                             )
                             NavigationBarItem(
                                 selected = selectedRoute == 1,
@@ -52,20 +56,20 @@ class MainActivity : ComponentActivity() {
                                     selectedRoute = 1
                                     navCtrl.navigate(Route.Other)
                                 },
-                                icon = {Icon(Icons.Filled.Face, contentDescription = null)}
+                                icon = { Icon(Icons.Filled.Face, contentDescription = null) }
                             )
                         }
                     }) { innerPadding ->
-                    NavHost(navController = navCtrl, startDestination = Route.RandomUser) {
+                    NavHost(modifier = Modifier.padding(innerPadding), navController = navCtrl, startDestination = Route.RandomUser) {
                         composable<Route.RandomUser> {
-                            RandomNamesWithRetrofit(
-                                modifier = Modifier.padding(innerPadding),
+                            RandomNamesWithRetrofit(vm =
                                 vm
                             )
                         }
                         composable<Route.Other> {
-                            Text("This will be completed in class")
-
+                            Column(modifier = Modifier.padding(32.dp).fillMaxSize()) {
+                                Text("This will be completed in class")
+                            }
                         }
                     }
                 }

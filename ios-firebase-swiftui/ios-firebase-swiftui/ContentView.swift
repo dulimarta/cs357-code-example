@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack(spacing: 20) {
-                Text("Number of documents: \(vm.allMembers.count)")
+                Text("Number of documents: \(vm.allStudents.count)")
                 Button("Add") {
                     vm.addNewMember()
                 }.disabled(vm.uid == nil)
@@ -31,7 +31,7 @@ struct ContentView: View {
             }
             
             LazyVStack(alignment: .leading, spacing: 4) {
-                ForEach(vm.allMembers, id: \.id) { m in
+                ForEach(vm.allStudents, id: \.id) { m in
                     Text("\(m.firstName) \(m.lastName)")
                         .padding([.bottom, .top, .leading], 4)
                         .frame(maxWidth: .infinity, alignment: .leading)
