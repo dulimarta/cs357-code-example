@@ -21,11 +21,14 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -65,15 +68,25 @@ class MainActivity : ComponentActivity() {
                 }
             }
             IntentComposeTheme {
+                val bl by appVM.batteryLevel.collectAsState(0)
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     snackbarHost = { SnackbarHost(hostState) }) { innerPadding ->
-
+                    val scope = rememberCoroutineScope()
                     Column(modifier = Modifier.padding(innerPadding)) {
                         IntentDemo()
 
                         IntentWithResult(vm = appVM)
 
+                        Row {
+                            Text("Battery")
+                            LinearProgressIndicator(
+                                modifier = Modifier.fillMaxWidth().padding(
+                                    horizontal = 16.dp
+                                ), progress = {
+                                    bl.toFloat() / 100
+                                })
+                        }
                     }
                 }
             }
