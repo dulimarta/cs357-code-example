@@ -1,6 +1,8 @@
 package edu.gvsu.cis.android_audio_compose
 
-import androidx.media3.common.Player
+import android.content.Intent
+import android.os.IBinder
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
@@ -10,6 +12,7 @@ class MyAudioService: MediaSessionService() {
     private var mediaSession: MediaSession? = null
 
 
+    @UnstableApi
     override fun onCreate() {
         super.onCreate()
         val playerBuffConfig = DefaultLoadControl.Builder()
@@ -30,6 +33,7 @@ class MyAudioService: MediaSessionService() {
         }
         super.onDestroy()
     }
+
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession? =
         mediaSession
 
