@@ -39,6 +39,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.15"
+//    }
 }
 
 dependencies {
@@ -51,11 +55,20 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
-    // Meida3
+    // Media3
     implementation("androidx.media3:media3-exoplayer:1.8.0")
     implementation("androidx.media3:media3-common-ktx:1.8.0")
     implementation("androidx.media3:media3-session:1.8.0")
 
+    // Glance Widget
+    // For AppWidgets support
+    implementation("androidx.glance:glance-appwidget:1.1.1")
+
+    // For interop APIs with Material 3
+    implementation("androidx.glance:glance-material3:1.1.1")
+
+    // For interop APIs with Material 2
+    // implementation("androidx.glance:glance-material:1.1.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

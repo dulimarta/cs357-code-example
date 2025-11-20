@@ -60,10 +60,10 @@ fun sinePath(path: Path, size: Size, freq1: Float, freq2: Float) {
     path.moveTo(0f, size.height/2)
     // Use a sum of two sine waves of different frequency
     for (x in 0..size.width.toInt()) {
-
-        val y1 = Math.sin(x * freq1 * Math.PI / size.width).toFloat() * size.height / 2 + size.height / 2
-        val y2 = Math.sin(x * freq2 * Math.PI / size.width).toFloat() * size.height / 2 + size.height / 2
-        path.lineTo(x.toFloat(), 0.4f * y1 + 0.6f * y2)
+        val y1 = Math.sin(x * freq1 * Math.PI / size.width).toFloat()
+        val y2 = Math.sin(x * freq2 * Math.PI / size.width).toFloat()
+        val ySum = (0.4f * y1 + 0.6f * y2) * size.height / 2 + size.height / 2
+        path.lineTo(x.toFloat(), ySum)
     }
 }
 
@@ -91,14 +91,9 @@ fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
                 .size(48.dp)) {
-                Path().apply {
-                    sinePath(this, size, freq1, freq2)
-                }.also {
-                    drawPath(it,
-                        brush = SolidColor(if (selectedOption == "Piano") Color.Blue else Color.Magenta),
-                        style = Stroke(width = 4f))
-                }
-
+                val p = Path()
+                sinePath(p, size, freq1, freq2)
+                drawPath(p, SolidColor(Color.Black), style = Stroke(width = 4f))
             }
         }
         Row(modifier = Modifier.fillMaxWidth(),
