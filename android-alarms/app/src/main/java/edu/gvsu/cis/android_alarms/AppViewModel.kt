@@ -23,10 +23,9 @@ class AppViewModel(val app: Application): AndroidViewModel(app) {
     }
 
     fun wakeUpSecondsFromNow(seconds: Int) {
-        val  alarmIntent = Intent(context, AlarmReceiver::class.java).let {
-            it.putExtra("EXTRA_MESSAGE", "Message from App")
-            PendingIntent.getBroadcast(context, 0xbeef, it, PendingIntent.FLAG_IMMUTABLE)
-        }
+        val  recvIntent = Intent(context, AlarmReceiver::class.java)
+            .putExtra("EXTRA_MESSAGE", "Message from App")
+        val alarmIntent = PendingIntent.getBroadcast(context, 0, recvIntent, PendingIntent.FLAG_IMMUTABLE)
         // Schedule inexact alarm
         alarmManager?.set(AlarmManager.ELAPSED_REALTIME,
             SystemClock.elapsedRealtime() + seconds * 1000,
