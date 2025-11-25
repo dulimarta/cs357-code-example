@@ -22,9 +22,11 @@ class AppViewModel(val app: Application): AndroidViewModel(app) {
 
     }
 
-    fun wakeUpSecondsFromNow(seconds: Int) {
-        val  recvIntent = Intent(context, AlarmReceiver::class.java)
-            .putExtra("EXTRA_MESSAGE", "Message from App")
+    fun wakeUpSecondsFromNow(seconds: Int, useBackStack: Boolean) {
+        val  recvIntent = Intent(context, AlarmReceiver::class.java).apply {
+            putExtra("EXTRA_MESSAGE", "Message from App")
+            putExtra("USE_BACK_STACK", if (useBackStack) 1 else 0)
+        }
         val alarmIntent = PendingIntent.getBroadcast(context, 0, recvIntent, PendingIntent.FLAG_IMMUTABLE)
         // Schedule inexact alarm
         alarmManager?.set(AlarmManager.ELAPSED_REALTIME,
