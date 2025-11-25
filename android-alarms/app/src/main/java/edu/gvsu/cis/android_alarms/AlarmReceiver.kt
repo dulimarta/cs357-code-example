@@ -13,11 +13,9 @@ import androidx.core.content.getSystemService
 import kotlin.random.Random
 
 class AlarmReceiver: BroadcastReceiver() {
-    override fun onReceive(ctx: Context?, z: Intent?) {
-
-        val msg = z?.getStringExtra("EXTRA_MESSAGE") ?: "None"
-        val useBackStack = z?.getIntExtra("USE_BACK_STACK", -1) ?: 0
-
+    override fun onReceive(ctx: Context?, payload: Intent?) {
+        val msg = payload?.getStringExtra("EXTRA_MESSAGE") ?: "None"
+        val useBackStack = payload?.getIntExtra("USE_BACK_STACK", -1) ?: 0
         val launchActivityIntent = Intent(ctx, SecondActivity::class.java)
 
         val notificationMgr: NotificationManager = ctx?.getSystemService<NotificationManager>()!!

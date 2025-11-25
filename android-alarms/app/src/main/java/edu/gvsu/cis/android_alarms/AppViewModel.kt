@@ -22,22 +22,23 @@ class AppViewModel(val app: Application): AndroidViewModel(app) {
 
     }
 
-    fun wakeUpSecondsFromNow(seconds: Int, useBackStack: Boolean) {
+    fun wakeUpSecondsFromNow(msg: String, seconds: Int, useBackStack: Boolean) {
         val  recvIntent = Intent(context, AlarmReceiver::class.java).apply {
-            putExtra("EXTRA_MESSAGE", "Message from App")
+            putExtra("EXTRA_MESSAGE", msg)
             putExtra("USE_BACK_STACK", if (useBackStack) 1 else 0)
         }
-        val alarmIntent = PendingIntent.getBroadcast(context, 0, recvIntent, PendingIntent.FLAG_IMMUTABLE)
+        val alarmIntent = PendingIntent.getBroadcast(context, 0, recvIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
         // Schedule inexact alarm
         alarmManager?.set(AlarmManager.ELAPSED_REALTIME,
             SystemClock.elapsedRealtime() + seconds * 1000,
             alarmIntent)
     }
 
-    fun showNotification() {
+    fun showNotification(msg: String) {
         val notification = NotificationCompat.Builder(context!!, "NC-gvsu")
             .setContentTitle("Notification Title")
-            .setContentText("Sent from ViewModel")
+            .setContentText(msg)
             .setSmallIcon(R.drawable.outline_alarm_24)
             .build()
         notificationManager.notify(Random.nextInt(), notification)
