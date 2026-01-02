@@ -29,7 +29,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppArchitectureComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TicketScreen(Modifier.padding(innerPadding), myViewModel)
+//                    TicketScreen(Modifier.padding(innerPadding),
+//                        myViewModel)
+//                    TicketScreenByCategory(Modifier.padding(innerPadding),
+//                        myViewModel)
+                    RememberName(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
