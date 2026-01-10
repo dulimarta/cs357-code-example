@@ -1,5 +1,6 @@
 package edu.gvsu.cis.android_alarms
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -16,11 +17,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Density
@@ -54,9 +60,10 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
-    val notifPermission = rememberPermissionState(android.Manifest.permission.POST_NOTIFICATIONS)
+    val notifPermission = rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS)
     val activity = LocalActivity.current
     val scope = rememberCoroutineScope()
+    var message by remember { mutableStateOf("") }
     LaunchedEffect(notifPermission) {
         if (!notifPermission.status.isGranted) {
             notifPermission.launchPermissionRequest()
@@ -66,6 +73,14 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
         Text(
             "Send Notification",
             fontSize = 24.sp
+        )
+        OutlinedTextField(
+            value = message,
+            onValueChange = { message = it},
+            label = { Text("Enter your message") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            maxLines = 1
         )
         LazyVerticalGrid(
             columns = object: GridCells {
@@ -85,7 +100,7 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
             }
             item {
                 Button(
-                    onClick = { vm.showNotification() },
+                    onClick = { vm.showNotification(message) },
                     enabled = notifPermission.status.isGranted
                 ) {
                     Text("Go")
@@ -97,7 +112,7 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
             }
             item {
                 Button(onClick = {
-                    vm.wakeUpSecondsFromNow(3, false)
+                    vm.wakeUpSecondsFromNow(message,3, false)
                     scope.launch {
                         delay(750)
                         // Close this activity, just to demonstrate that the notification
@@ -114,7 +129,7 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
             }
             item {
                 Button(onClick = {
-                    vm.wakeUpSecondsFromNow(3, true)
+                    vm.wakeUpSecondsFromNow(message,3, true)
                     scope.launch {
                         delay(750)
                         // Close this activity, just to demonstrate that the notification
