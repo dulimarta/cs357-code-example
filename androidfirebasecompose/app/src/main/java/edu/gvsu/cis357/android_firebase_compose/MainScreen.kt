@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -56,7 +57,8 @@ fun MainScreen(modifier: Modifier = Modifier, whoamI: String, vm: MyViewModel) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(if (pos % 2 == 0) Color.Transparent else Color.LightGray)
+                        .height(48.dp)
+                        .background(if (pos % 2 == 0) Color.Transparent else Color.DarkGray)
                         .selectable(false, onClick = {
                             if (selectedEntry == pos)
                                 selectedEntry = null

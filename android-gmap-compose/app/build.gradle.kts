@@ -56,6 +56,10 @@ dependencies {
 
     // Android Maps Compose composables for the Maps SDK for Android
     implementation("com.google.maps.android:maps-compose:6.8.0")
+
+    // Permission handling
+    implementation("com.google.accompanist:accompanist-permissions:0.37.3")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

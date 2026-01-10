@@ -1,7 +1,5 @@
 package edu.gvsu.cis.android_audio_compose
 
-import android.content.Intent
-import android.os.IBinder
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
@@ -19,7 +17,7 @@ class MyAudioService: MediaSessionService() {
             .setBufferDurationsMs(20000, 20000, 1000, 1000)
             .build()
         val player = ExoPlayer.Builder(this)
-            .setLoadControl(playerBuffConfig)
+//            .setLoadControl(playerBuffConfig)
             .build()
         mediaSession = MediaSession.Builder(this, player).build()
 
