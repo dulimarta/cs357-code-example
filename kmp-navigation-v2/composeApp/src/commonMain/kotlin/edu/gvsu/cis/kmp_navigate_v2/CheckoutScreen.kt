@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -53,7 +54,7 @@ fun CheckoutScreen(
                 }
                 Row(verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    TextButton(onClick = { onSelectPayment(totalPrice) }) {
+                    OutlinedButton(onClick = { onSelectPayment(totalPrice) }) {
                         Text("Pay With...")
                     }
                     Text("Payment Method: ${paymentMethod ?: "<unknown>"}")

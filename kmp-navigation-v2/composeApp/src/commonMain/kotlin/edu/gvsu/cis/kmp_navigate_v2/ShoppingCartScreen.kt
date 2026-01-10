@@ -41,7 +41,6 @@ fun ShoppingCartScreen(modifier: Modifier = Modifier,
                 Text("Checkout")
             }
         }
-
     }
 }
 

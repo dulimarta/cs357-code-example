@@ -81,8 +81,10 @@ fun SelectItemsScreen(
                         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
                     ) {
                         IconButton(onClick = {
-                            quantity--
-                            vm.setOrderQuantity(it.id, quantity)
+                            if (quantity > 0) {
+                                quantity--
+                                vm.setOrderQuantity(it.id, quantity)
+                            }
                         }) {
                             Icon(
                                 modifier = Modifier.scale(2.5f),

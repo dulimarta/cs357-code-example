@@ -40,9 +40,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.1")
-            implementation("io.github.behzodhalil:blahblah-fake:0.2.5")
             implementation("com.paleblueapps:kmpcore:1.3.0")
-//            implementation("org.jetbrains.compose.material:material-icons-extended:1.7.7")
 //            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0-RC")
         }
         commonTest.dependencies {

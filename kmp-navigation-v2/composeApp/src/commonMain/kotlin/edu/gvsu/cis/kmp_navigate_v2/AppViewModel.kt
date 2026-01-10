@@ -1,25 +1,26 @@
 package edu.gvsu.cis.kmp_navigate_v2
 
 import androidx.lifecycle.ViewModel
-import io.spherelabs.blahblahfake.internal.blah
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+
 data class Item(val id: String = "", val description: String = "", val price: Float = 0f)
 data class OrderedItem(val description: String = "", val quantity: Int = 0)
 
 class AppViewModel : ViewModel() {
 
-    val faker = blah()
+//    val faker = faker { }
+
 
     @OptIn(ExperimentalUuidApi::class)
     val availableItems = MutableStateFlow(List(40) {
         Item(
             id = Uuid.random().toString(),
-            description = faker.commerce.product.adjective.toString() + " " + faker.commerce.product.material.toString(),
+            description = "Random item $it",
             price = (0..100).random().toFloat()
         )
     }).asStateFlow()
