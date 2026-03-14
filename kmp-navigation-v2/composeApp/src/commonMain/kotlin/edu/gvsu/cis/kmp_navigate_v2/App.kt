@@ -33,7 +33,6 @@ data object Checkout
 @Serializable
 data class SelectPayment(val totalPay: Float)
 
-
 @Composable
 @Preview
 fun App() {
