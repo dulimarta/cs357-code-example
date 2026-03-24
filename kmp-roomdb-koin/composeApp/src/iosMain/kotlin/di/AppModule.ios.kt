@@ -14,7 +14,7 @@ actual fun platformDBModule(): Module =
         single {
             val dbPath = documentDirectory() + "/app_data.db"
             println("Database path: $dbPath")
-             Room.databaseBuilder<AppDB>(dbPath)
+            Room.databaseBuilder<AppDB>(dbPath)
         }
     }
 
