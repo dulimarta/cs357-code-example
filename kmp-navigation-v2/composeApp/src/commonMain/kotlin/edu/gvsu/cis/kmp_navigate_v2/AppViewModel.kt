@@ -38,6 +38,7 @@ class AppViewModel : ViewModel() {
         } else {
             orderMap[id] = quantity
         }
+        _totalPrice.value = 0f
         orderMap.forEach { (id, quantity) ->
             val item = availableItems.value.find { it.id == id }
             if (item != null) {
