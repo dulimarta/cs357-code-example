@@ -3,15 +3,19 @@ package edu.gvsu.cis.android_audio_compose
 import android.app.Application
 import android.content.ComponentName
 import android.content.ContentResolver
+import android.media.MediaRecorder
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.common.Player.REPEAT_MODE_ONE
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.MoreExecutors
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import java.io.IOException
 
 class AudioViewModel(val app: Application) : AndroidViewModel(app) {
 
@@ -20,6 +24,8 @@ class AudioViewModel(val app: Application) : AndroidViewModel(app) {
     private var _playingAudio = MutableStateFlow(false)
     val isPLayingAudio = _playingAudio.asStateFlow()
     private var currentMP3resource: Int = R.raw.piano_short
+
+    private var recorder: MediaRecorder? = null
     init {
         val sessionToken = SessionToken(
             app.applicationContext,
@@ -31,8 +37,11 @@ class AudioViewModel(val app: Application) : AndroidViewModel(app) {
             mediaController = ctrlFuture.get()
             _playingAudio.value = mediaController?.isPlaying == true
         }, MoreExecutors.directExecutor())
-    }
 
+    }
+    private val _isRecording = MutableStateFlow(false)
+    val isRecording = _isRecording.asStateFlow()
+    private var audioFile: String = ""
     fun startAudio() {
         mediaController?.run {
             val uri = prepareMP3(currentMP3resource)
@@ -67,5 +76,51 @@ class AudioViewModel(val app: Application) : AndroidViewModel(app) {
     fun stopAudio() {
         _playingAudio.value = false
         mediaController?.stop()
+    }
+
+    private fun createRecorder() =
+        MediaRecorder(app.applicationContext).apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+            val auPath = app.applicationContext.externalCacheDir?.absolutePath
+            println("Audio file is saved to $auPath")
+            audioFile = auPath + "/audio_rec.3gpp"
+            setOutputFile(audioFile)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        }
+
+    fun startRecording() {
+        _isRecording.update { true }
+        try {
+            if (recorder == null)
+                recorder = createRecorder()
+            recorder?.apply {
+                prepare()
+                start()
+            }
+        } catch(e: IOException) {
+            _isRecording.update { false }
+            println("Can't initialize MediaRecorder ${e.message}")
+        }
+    }
+
+    fun playRecording() {
+        mediaController?.run {
+
+            val uri = Uri.encode(audioFile)
+            val mediaItem = MediaItem.fromUri(uri)
+            repeatMode = Player.REPEAT_MODE_OFF
+            setMediaItem(mediaItem)
+            prepare()
+            play()
+        }
+    }
+
+    fun stopRecording() {
+        recorder?.apply {
+            stop()
+            release()
+        }
+        _isRecording.update { false }
     }
 }

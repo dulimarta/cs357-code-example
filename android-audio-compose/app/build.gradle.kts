@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "edu.gvsu.cis.android_audio_compose"
-        minSdk = 24
+        minSdk = 31
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -66,14 +66,15 @@ dependencies {
 
     // For interop APIs with Material 3
     implementation("androidx.glance:glance-material3:1.1.1")
-
+    // Permission handling
+    implementation("com.google.accompanist:accompanist-permissions:0.37.3")
     // For interop APIs with Material 2
     // implementation("androidx.glance:glance-material:1.1.1")
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+//    testImplementation(libs.junit)
+//    androidTestImplementation(libs.androidx.junit)
+//    androidTestImplementation(libs.androidx.espresso.core)
+//    androidTestImplementation(platform(libs.androidx.compose.bom))
+//    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

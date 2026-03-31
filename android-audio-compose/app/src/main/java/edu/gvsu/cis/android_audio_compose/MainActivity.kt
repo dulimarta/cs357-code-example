@@ -1,5 +1,6 @@
 package edu.gvsu.cis.android_audio_compose
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,7 +14,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -31,7 +36,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import edu.gvsu.cis.android_audio_compose.ui.theme.AndroidaudiocomposeTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -67,6 +76,7 @@ fun sinePath(path: Path, size: Size, freq1: Float, freq2: Float) {
     }
 }
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
     val isPlayingAudio by vm.isPLayingAudio.collectAsState()
@@ -74,6 +84,8 @@ fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
     var freq2 by remember { mutableStateOf(2f) }
     val radioOptions = listOf("Piano", "Saxophone")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0])}
+    val audioRecordPermission = rememberPermissionState(Manifest.permission.RECORD_AUDIO)
+    val isRec by vm.isRecording.collectAsState()
     LaunchedEffect(isPlayingAudio) {
         launch(Dispatchers.Default) {
             while (isPlayingAudio) {
@@ -83,6 +95,9 @@ fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
             }
             freq1 = 0f
             freq2 = 0f
+        }
+        if (!audioRecordPermission.status.isGranted) {
+            audioRecordPermission.launchPermissionRequest()
         }
     }
     Column(modifier = modifier.padding(8.dp)) {
@@ -111,6 +126,19 @@ fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
                     onClick = { onOptionSelected(text)
                     vm.selectAudio(text)})
                 Text(text = text)
+            }
+        }
+        Text("Recording in progress $isRec")
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.CenterHorizontally)) {
+            IconButton(onClick = { vm.startRecording()}) {
+                Icon(painterResource(R.drawable.record_24), null)
+            }
+            IconButton(onClick = { vm.stopRecording()}) {
+                Icon(painterResource(R.drawable.stop_circle_24), null)
+            }
+            IconButton(onClick = { vm.playRecording()}) {
+                Icon(painterResource(R.drawable.play_circle_24), null)
             }
         }
     }
