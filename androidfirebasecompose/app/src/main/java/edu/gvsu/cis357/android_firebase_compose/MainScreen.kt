@@ -41,17 +41,20 @@ fun MainScreen(modifier: Modifier = Modifier, whoamI: String, vm: MyViewModel) {
             fontSize = 16.sp,
             modifier = Modifier.padding(16.dp)
         )
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly) {
             Button(onClick = {
                 vm.addRandomName()
             }) {
                 Text("Add New")
             }
-            if (docID != null) {
-                Text("DocID ${docID!!}")
+            Column {
+                Text("DocID ${docID ?: ""}", fontSize = 12.sp)
+                Text("Record count: ${allNames.size}", fontSize = 12.sp)
             }
         }
-        LazyColumn {
+        LazyColumn(modifier = Modifier.weight(1f)) {
             itemsIndexed(allNames)
             { pos, item ->
                 Row(
