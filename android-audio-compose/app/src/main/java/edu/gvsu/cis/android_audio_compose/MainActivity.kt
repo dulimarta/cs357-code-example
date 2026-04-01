@@ -10,8 +10,10 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -58,7 +60,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AudioScreen(
                         modifier = Modifier.padding(innerPadding),
-                            vm = appVM)
+                        vm = appVM
+                    )
                 }
             }
         }
@@ -66,7 +69,7 @@ class MainActivity : ComponentActivity() {
 }
 
 fun sinePath(path: Path, size: Size, freq1: Float, freq2: Float) {
-    path.moveTo(0f, size.height/2)
+    path.moveTo(0f, size.height / 2)
     // Use a sum of two sine waves of different frequency
     for (x in 0..size.width.toInt()) {
         val y1 = Math.sin(x * freq1 * Math.PI / size.width).toFloat()
@@ -83,7 +86,7 @@ fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
     var freq1 by remember { mutableStateOf(1f) }
     var freq2 by remember { mutableStateOf(2f) }
     val radioOptions = listOf("Piano", "Saxophone")
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0])}
+    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
     val audioRecordPermission = rememberPermissionState(Manifest.permission.RECORD_AUDIO)
     val isRec by vm.isRecording.collectAsState()
     LaunchedEffect(isPlayingAudio) {
@@ -101,18 +104,20 @@ fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
         }
     }
     Column(modifier = modifier.padding(8.dp)) {
-        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Canvas(modifier = Modifier
+        Canvas(
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
-                .size(48.dp)) {
-                val p = Path()
-                sinePath(p, size, freq1, freq2)
-                drawPath(p, SolidColor(Color.Black), style = Stroke(width = 4f))
-            }
+                .size(48.dp)
+        ) {
+            val p = Path()
+            sinePath(p, size, freq1, freq2)
+            drawPath(p, SolidColor(Color.Black), style = Stroke(width = 4f))
         }
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
             Button(onClick = { vm.startAudio() }, enabled = !isPlayingAudio) {
                 Text(text = "Play")
             }
@@ -120,24 +125,38 @@ fun AudioScreen(modifier: Modifier = Modifier, vm: AudioViewModel) {
                 Text(text = "Stop")
             }
         }
-        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,) {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             radioOptions.forEach { text ->
-                RadioButton(selected = (text == selectedOption),
-                    onClick = { onOptionSelected(text)
-                    vm.selectAudio(text)})
+                RadioButton(
+                    selected = (text == selectedOption),
+                    onClick = {
+                        onOptionSelected(text)
+                        vm.selectAudio(text)
+                    })
                 Text(text = text)
             }
         }
-        Text("Recording in progress $isRec")
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.CenterHorizontally)) {
-            IconButton(onClick = { vm.startRecording()}) {
+        Spacer(Modifier.height(32.dp))
+        Text(if (isRec) "Recording in progress" else "")
+        if (!audioRecordPermission.status.isGranted)
+            Text("Audio Recording is disable until AUDIO_RECORD permission is granted")
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(
+                8.dp,
+                alignment = Alignment.CenterHorizontally
+            )
+        ) {
+            IconButton(onClick = { vm.startRecording() },
+                enabled = audioRecordPermission.status.isGranted) {
                 Icon(painterResource(R.drawable.record_24), null)
             }
-            IconButton(onClick = { vm.stopRecording()}) {
+            IconButton(onClick = { vm.stopRecording() },
+                enabled = audioRecordPermission.status.isGranted) {
                 Icon(painterResource(R.drawable.stop_circle_24), null)
             }
-            IconButton(onClick = { vm.playRecording()}) {
+            IconButton(onClick = { vm.playRecording() },
+                enabled = audioRecordPermission.status.isGranted) {
                 Icon(painterResource(R.drawable.play_circle_24), null)
             }
         }
