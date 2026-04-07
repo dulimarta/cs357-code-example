@@ -16,7 +16,10 @@ class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(ctx: Context?, payload: Intent?) {
         val msg = payload?.getStringExtra("EXTRA_MESSAGE") ?: "None"
         val useBackStack = payload?.getIntExtra("USE_BACK_STACK", -1) ?: 0
-        val launchActivityIntent = Intent(ctx, SecondActivity::class.java)
+        val launchActivityIntent = Intent(ctx, SecondActivity::class.java).apply {
+            // Pass the message to the second activity
+            putExtra("FYI", msg)
+        }
 
         val notificationMgr: NotificationManager = ctx?.getSystemService<NotificationManager>()!!
         val nBuilder = NotificationCompat.Builder(ctx!!, "NC-gvsu")

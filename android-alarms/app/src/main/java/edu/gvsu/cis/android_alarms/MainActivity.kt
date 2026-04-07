@@ -9,10 +9,13 @@ import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -27,6 +30,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Density
@@ -76,27 +80,36 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
         )
         OutlinedTextField(
             value = message,
-            onValueChange = { message = it},
+            onValueChange = { message = it },
             label = { Text("Enter your message") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             maxLines = 1
         )
+        val textModifier = Modifier.fillMaxHeight().heightIn(40.dp, 80.dp)
         LazyVerticalGrid(
-            columns = object: GridCells {
+            columns = object : GridCells {
                 override fun Density.calculateCrossAxisCellSizes(
                     availableSize: Int,
-                    spacing: Int): List<Int> {
-                    val firstColumnWidth = (availableSize - spacing ) * 4 / 5
+                    spacing: Int
+                ): List<Int> {
+                    // 80% first column, 20% second column
+                    val firstColumnWidth = (availableSize - spacing) * 4 / 5
                     val secondColumnWidth = availableSize - spacing - firstColumnWidth
                     return listOf(firstColumnWidth, secondColumnWidth)
                 }
             },
             contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             item {
-                Text("Show immediate notification")
+                Box(
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = textModifier
+                ) {
+                    Text("Show immediate notification")
+                }
             }
             item {
                 Button(
@@ -105,14 +118,18 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
                 ) {
                     Text("Go")
                 }
-
             }
             item {
-                Text("Show via Alarm (1 activity)")
+                Box(
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = textModifier
+                ) {
+                    Text("Show via Alarm (1 activity)")
+                }
             }
             item {
                 Button(onClick = {
-                    vm.wakeUpSecondsFromNow(message,3, false)
+                    vm.wakeUpSecondsFromNow(message, 3, false)
                     scope.launch {
                         delay(750)
                         // Close this activity, just to demonstrate that the notification
@@ -125,11 +142,16 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
 
             }
             item {
-                Text("Show via Alarm (+ activity chain)")
+                Box(
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = textModifier
+                ) {
+                    Text("Show via Alarm (+ activity chain)")
+                }
             }
             item {
                 Button(onClick = {
-                    vm.wakeUpSecondsFromNow(message,3, true)
+                    vm.wakeUpSecondsFromNow(message, 3, true)
                     scope.launch {
                         delay(750)
                         // Close this activity, just to demonstrate that the notification
@@ -142,14 +164,20 @@ fun Greeting(modifier: Modifier = Modifier, vm: AppViewModel) {
 
             }
             item {
-                Text("Notification Settings")
+                Box(
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = textModifier
+                ) {
+                    Text("Notification Settings")
+                }
             }
             item {
                 Button(onClick = {
-                    val settingsIntent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
-                        putExtra(Settings.EXTRA_APP_PACKAGE, activity?.packageName)
-                        putExtra(Settings.EXTRA_CHANNEL_ID, "NC-gvsu")
-                    }
+                    val settingsIntent =
+                        Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
+                            putExtra(Settings.EXTRA_APP_PACKAGE, activity?.packageName)
+                            putExtra(Settings.EXTRA_CHANNEL_ID, "NC-gvsu")
+                        }
                     activity?.startActivity(settingsIntent)
                 }) {
                     Text("Go")

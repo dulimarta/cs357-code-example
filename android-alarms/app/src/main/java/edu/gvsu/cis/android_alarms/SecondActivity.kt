@@ -38,12 +38,16 @@ class SecondActivity : ComponentActivity() {
 @Composable
 fun JustText(modifier: Modifier = Modifier) {
     val thisActivity = LocalActivity.current
+    val incomingMsg = thisActivity?.intent?.getStringExtra("FYI")
     Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = "Second Activity",
             fontSize = 30.sp,
         )
+        if (incomingMsg != null) {
+            Text("Message: $incomingMsg")
+        }
         Button(onClick = { thisActivity?.finish() }) {
             Text("Close")
         }

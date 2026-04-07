@@ -2,6 +2,7 @@ package edu.gvsu.cis.android_alarms
 
 import android.app.AlarmManager
 import android.app.Application
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
@@ -19,7 +20,9 @@ class AppViewModel(val app: Application): AndroidViewModel(app) {
     init {
         alarmManager = context.getSystemService<AlarmManager>()!!
         notificationManager = context.getSystemService<NotificationManager>()!!
-
+        val ch = NotificationChannel("NC-gvsu","Notification Channel",
+            NotificationManager.IMPORTANCE_DEFAULT)
+        notificationManager.createNotificationChannel(ch)
     }
 
     fun wakeUpSecondsFromNow(msg: String, seconds: Int, useBackStack: Boolean) {
